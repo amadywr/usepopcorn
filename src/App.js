@@ -38,43 +38,50 @@ export default function App() {
 
   return (
     <>
-      <Navbar>
-        <Logo />
-        <Search query={query} setQuery={setQuery} />
-        <NumResults movies={movies} />
-      </Navbar>
-      <Main>
-        <Box>
-          {isLoading && <Loader />}
+      <div className="available">
+        <Navbar>
+          <Logo />
+          <Search query={query} setQuery={setQuery} />
+          <NumResults movies={movies} />
+        </Navbar>
+        <Main>
+          <Box>
+            {isLoading && <Loader />}
 
-          {!isLoading && !error && (
-            <MovieList
-              movies={movies}
-              handleSelectedMovie={handleSelectedMovie}
-            />
-          )}
-
-          {error && <ErrorMessage message={error} />}
-        </Box>
-        <Box>
-          {selectedId ? (
-            <MovieDetails
-              selectedId={selectedId}
-              handleCloseMovie={handleCloseMovie}
-              handleAddWatched={handleAddWatched}
-              watched={watched}
-            />
-          ) : (
-            <>
-              <WatchedSummary watched={watched} />
-              <WatchedMoviesList
-                watched={watched}
-                onDeleteWatched={handleDeleteWatched}
+            {!isLoading && !error && (
+              <MovieList
+                movies={movies}
+                handleSelectedMovie={handleSelectedMovie}
               />
-            </>
-          )}
-        </Box>
-      </Main>
+            )}
+
+            {error && <ErrorMessage message={error} />}
+          </Box>
+          <Box>
+            {selectedId ? (
+              <MovieDetails
+                selectedId={selectedId}
+                handleCloseMovie={handleCloseMovie}
+                handleAddWatched={handleAddWatched}
+                watched={watched}
+              />
+            ) : (
+              <>
+                <WatchedSummary watched={watched} />
+                <WatchedMoviesList
+                  watched={watched}
+                  onDeleteWatched={handleDeleteWatched}
+                />
+              </>
+            )}
+          </Box>
+        </Main>
+      </div>
+
+      <div className="not-available">
+        <h1>Sorry, this app is not available on mobile devices.</h1>
+        <p>Visit on desktop or laptop.</p>
+      </div>
     </>
   );
 }
