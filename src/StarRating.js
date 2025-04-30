@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const containerStyle = {
   display: 'flex',
   alignItems: 'center',
   gap: '16px',
-};
+}
 
 const starContainerStyle = {
   display: 'flex',
-};
+}
 
 StarRating.propTypes = {
   maxRating: PropTypes.number,
@@ -19,7 +19,7 @@ StarRating.propTypes = {
   messages: PropTypes.array,
   defaultRating: PropTypes.number,
   onSetRating: PropTypes.func,
-};
+}
 
 function StarRating({
   maxRating = 5,
@@ -30,12 +30,12 @@ function StarRating({
   defaultRating = 0,
   onSetRating = () => {},
 }) {
-  const [rating, setRating] = useState(defaultRating);
-  const [hoverRating, setHoverRating] = useState(0);
+  const [rating, setRating] = useState(defaultRating)
+  const [hoverRating, setHoverRating] = useState(0)
 
   function handleRating(rating) {
-    setRating(rating);
-    onSetRating(rating);
+    setRating(rating)
+    onSetRating(rating)
   }
 
   const textStyle = {
@@ -43,7 +43,7 @@ function StarRating({
     margin: '0',
     color,
     fontSize: `${size / 1.5}px`,
-  };
+  }
 
   return (
     <div style={containerStyle}>
@@ -67,10 +67,10 @@ function StarRating({
           : hoverRating || rating || ''}
       </p>
     </div>
-  );
+  )
 }
 
-export default StarRating;
+export default StarRating
 
 function Star({ onRate, full, onMouseEnter, onMouseLeave, color, size }) {
   const starStyle = {
@@ -78,7 +78,7 @@ function Star({ onRate, full, onMouseEnter, onMouseLeave, color, size }) {
     height: size,
     display: 'block',
     cursor: 'pointer',
-  };
+  }
 
   return (
     <span
@@ -113,7 +113,5 @@ function Star({ onRate, full, onMouseEnter, onMouseLeave, color, size }) {
         </svg>
       )}
     </span>
-  );
+  )
 }
-
-// EMPTY STAR

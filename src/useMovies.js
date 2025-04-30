@@ -1,58 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-const KEY = '7b42ce04';
+const KEY = process.env.REACT_APP_API_KEY
 
 export function useMovies(query) {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    const controller = new AbortController();
+    const controller = new AbortController()
     async function fetchMovies() {
       try {
-        setIsLoading(true);
-        setError('');
+        setIsLoading(true)
+        setError('')
 
         const res = await fetch(
           `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
           { signal: controller.signal }
-        );
+        )
 
         if (!res.ok) {
-          throw new Error('Something went wrong during fetching movies');
+          throw new Error('Something went wrong during fetching movies')
         }
 
-        const data = await res.json();
+        const data = await res.json()
 
         if (data.Response === 'False') {
-          throw new Error('No movie found');
+          throw new Error('No movie found')
         }
 
-        setMovies(data.Search);
-        setError('');
+        setMovies(data.Search)
+        setError('')
       } catch (error) {
         if (error.name !== 'AbortError') {
-          setError(error.message);
+          setError(error.message)
         }
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
     }
 
     if (!query.length) {
-      setMovies([]);
-      setError('');
-      return;
+      setMovies([])
+      setError('')
+      return
     }
 
     // handleCloseMovie();
-    fetchMovies();
+    fetchMovies()
 
     return () => {
-      controller.abort();
-    };
-  }, [query]);
+      controller.abort()
+    }
+  }, [query])
 
-  return { movies, isLoading, error };
+  return { movies, isLoading, error }
 }

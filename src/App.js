@@ -1,40 +1,40 @@
-import { useEffect, useRef, useState } from 'react';
-import StarRating from './StarRating';
-import { useMovies } from './useMovies';
+import { useEffect, useRef, useState } from 'react'
+import StarRating from './StarRating'
+import { useMovies } from './useMovies'
 
 const average = (arr) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0)
 
-const KEY = '7b42ce04';
+const KEY = process.env.REACT_APP_API_KEY
 
 export default function App() {
-  const [query, setQuery] = useState('');
-  const [selectedId, setSelectedId] = useState(null);
+  const [query, setQuery] = useState('')
+  const [selectedId, setSelectedId] = useState(null)
   const [watched, setWatched] = useState(() => {
-    return JSON.parse(localStorage.getItem('watched')) || [];
-  });
+    return JSON.parse(localStorage.getItem('watched')) || []
+  })
 
   function handleSelectedMovie(id) {
-    setSelectedId((selectedId) => (id === selectedId ? null : id));
+    setSelectedId((selectedId) => (id === selectedId ? null : id))
   }
 
   function handleCloseMovie() {
-    setSelectedId(null);
+    setSelectedId(null)
   }
 
   function handleAddWatched(movie) {
-    setWatched((watched) => [...watched, movie]);
+    setWatched((watched) => [...watched, movie])
   }
 
   function handleDeleteWatched(id) {
-    setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== id))
   }
 
-  const { movies, error, isLoading } = useMovies(query);
+  const { movies, error, isLoading } = useMovies(query)
 
   useEffect(() => {
-    localStorage.setItem('watched', JSON.stringify(watched));
-  }, [watched]);
+    localStorage.setItem('watched', JSON.stringify(watched))
+  }, [watched])
 
   return (
     <>
@@ -83,7 +83,7 @@ export default function App() {
         <p>Visit on desktop or laptop.</p>
       </div>
     </>
-  );
+  )
 }
 
 function MovieDetails({
@@ -92,21 +92,21 @@ function MovieDetails({
   handleAddWatched,
   watched,
 }) {
-  const [movie, setMovie] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [userRating, setUserRating] = useState('');
+  const [movie, setMovie] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
+  const [userRating, setUserRating] = useState('')
 
-  const countRef = useRef(0);
+  const countRef = useRef(0)
 
   useEffect(() => {
-    if (userRating) countRef.current++;
-  }, [userRating]);
+    if (userRating) countRef.current++
+  }, [userRating])
 
-  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId)
 
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
-  )?.userRating;
+  )?.userRating
 
   const {
     Title: title,
@@ -119,7 +119,7 @@ function MovieDetails({
     Actors: actors,
     Director: director,
     Genre: genre,
-  } = movie;
+  } = movie
 
   function handleAdd() {
     const newWatchedMovie = {
@@ -131,49 +131,49 @@ function MovieDetails({
       runtime: Number(runtime.split(' ').at(0)),
       userRating,
       countRatingDececions: countRef.current,
-    };
+    }
 
-    handleCloseMovie();
-    handleAddWatched(newWatchedMovie);
+    handleCloseMovie()
+    handleAddWatched(newWatchedMovie)
   }
 
   useEffect(() => {
     function callback(e) {
       if (e.code === 'Escape') {
-        handleCloseMovie();
+        handleCloseMovie()
       }
     }
 
-    document.addEventListener('keydown', callback);
+    document.addEventListener('keydown', callback)
 
     return () => {
-      document.removeEventListener('keydown', callback);
-    };
-  }, [handleCloseMovie]);
+      document.removeEventListener('keydown', callback)
+    }
+  }, [handleCloseMovie])
 
   useEffect(() => {
     async function getMovieDetails() {
-      setIsLoading(true);
+      setIsLoading(true)
       const res = await fetch(
         `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
-      );
+      )
 
-      const data = await res.json();
-      setMovie(data);
-      setIsLoading(false);
+      const data = await res.json()
+      setMovie(data)
+      setIsLoading(false)
     }
 
-    getMovieDetails();
-  }, [selectedId]);
+    getMovieDetails()
+  }, [selectedId])
 
   useEffect(() => {
-    if (!title) return;
-    document.title = `Movie | ${title}`;
+    if (!title) return
+    document.title = `Movie | ${title}`
 
     return () => {
-      document.title = 'usePopcorn';
-    };
-  }, [title]);
+      document.title = 'usePopcorn'
+    }
+  }, [title])
 
   return (
     <div className="details">
@@ -231,7 +231,7 @@ function MovieDetails({
         </>
       )}
     </div>
-  );
+  )
 }
 
 function ErrorMessage({ message }) {
@@ -239,15 +239,15 @@ function ErrorMessage({ message }) {
     <p className="error">
       <span>⛔️</span> {message}
     </p>
-  );
+  )
 }
 
 function Loader() {
-  return <p className="loader">Loading...</p>;
+  return <p className="loader">Loading...</p>
 }
 
 function Navbar({ children }) {
-  return <nav className="nav-bar">{children}</nav>;
+  return <nav className="nav-bar">{children}</nav>
 }
 
 function Logo() {
@@ -256,30 +256,30 @@ function Logo() {
       <span role="img">🍿</span>
       <h1>usePopcorn</h1>
     </div>
-  );
+  )
 }
 
 function Search({ query, setQuery }) {
-  const inputEl = useRef(null);
+  const inputEl = useRef(null)
 
   useEffect(() => {
-    inputEl.current.focus();
+    inputEl.current.focus()
 
     function callback(e) {
-      if (document.activeElement === inputEl.current) return;
+      if (document.activeElement === inputEl.current) return
 
       if (e.code === 'Enter') {
-        inputEl.current.focus();
-        setQuery('');
+        inputEl.current.focus()
+        setQuery('')
       }
     }
 
-    document.addEventListener('keydown', callback);
+    document.addEventListener('keydown', callback)
 
     return () => {
-      document.removeEventListener('keydown', callback);
-    };
-  }, [setQuery]);
+      document.removeEventListener('keydown', callback)
+    }
+  }, [setQuery])
 
   return (
     <input
@@ -290,7 +290,7 @@ function Search({ query, setQuery }) {
       onChange={(e) => setQuery(e.target.value)}
       ref={inputEl}
     />
-  );
+  )
 }
 
 function NumResults({ movies }) {
@@ -298,15 +298,15 @@ function NumResults({ movies }) {
     <p className="num-results">
       Found <strong>{movies.length}</strong> results
     </p>
-  );
+  )
 }
 
 function Main({ children }) {
-  return <main className="main">{children}</main>;
+  return <main className="main">{children}</main>
 }
 
 function Box({ children }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(true)
 
   return (
     <div className="box">
@@ -315,7 +315,7 @@ function Box({ children }) {
       </button>
       {isOpen && children}
     </div>
-  );
+  )
 }
 
 function MovieList({ movies, handleSelectedMovie }) {
@@ -329,7 +329,7 @@ function MovieList({ movies, handleSelectedMovie }) {
         />
       ))}
     </ul>
-  );
+  )
 }
 
 function Movie({ movie, handleSelectedMovie }) {
@@ -344,13 +344,13 @@ function Movie({ movie, handleSelectedMovie }) {
         </p>
       </div>
     </li>
-  );
+  )
 }
 
 function WatchedSummary({ watched }) {
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
+  const avgImdbRating = average(watched.map((movie) => movie.imdbRating))
+  const avgUserRating = average(watched.map((movie) => movie.userRating))
+  const avgRuntime = average(watched.map((movie) => movie.runtime))
 
   return (
     <div className="summary">
@@ -374,7 +374,7 @@ function WatchedSummary({ watched }) {
         </p>
       </div>
     </div>
-  );
+  )
 }
 
 function WatchedMoviesList({ watched, onDeleteWatched }) {
@@ -388,7 +388,7 @@ function WatchedMoviesList({ watched, onDeleteWatched }) {
         />
       ))}
     </ul>
-  );
+  )
 }
 
 function WatchedMovie({ movie, onDeleteWatched }) {
@@ -418,5 +418,5 @@ function WatchedMovie({ movie, onDeleteWatched }) {
         </button>
       </div>
     </li>
-  );
+  )
 }
