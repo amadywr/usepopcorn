@@ -1,6 +1,6 @@
 # usePopcorn 🍿
 
-usePopcorn is a web application designed for movie enthusiasts to browse, discover, and rate movies. It allows users to search for movies, view detailed information, and maintain a personalized watchlist with ratings. The app is built with React and leverages the OMDB API for movie data.
+usePopcorn is a web application designed for movie enthusiasts to browse, discover, and rate movies. It allows users to search for movies, view detailed information, and maintain a personalized watchlist with ratings. The app is built with React and leverages the [OMDB API](https://www.omdbapi.com/) for movie data.
 
 ## Features
 
@@ -12,10 +12,6 @@ usePopcorn is a web application designed for movie enthusiasts to browse, discov
 - **Data Persistence**: Selected movies and ratings are saved in the browser's local storage, ensuring your data is persisted even after refreshing the page.
 - **Responsive Design**: Optimized for desktop and laptop devices is NOT available for mobile screens.
 
-## App Demo
-
-You can try the live demo of the app at [usepopcorn.ahmadyawari.com](https://usepopcorn.ahmadyawari.com).
-
 ## Tech Stack
 
 - **Frontend**: React
@@ -23,8 +19,6 @@ You can try the live demo of the app at [usepopcorn.ahmadyawari.com](https://use
 - **Styling**: CSS (custom styles)
 - **State Management**: React hooks (`useState`, `useEffect`, `useRef`)
 
-## Credits
+## App Demo
 
-- Movie data is provided by the [OMDB API](https://www.omdbapi.com/).
-
-Enjoy discovering and rating movies with usePopcorn! 🎥✨
+You can try the live demo of the app at [usepopcorn.ahmadyawari.com](https://usepopcorn.ahmadyawari.com).
