@@ -9,6 +9,7 @@ usePopcorn is a web application designed for movie enthusiasts to browse, discov
 - **Rate Movies**: Rate movies using an interactive star rating system.
 - **Watchlist Management**: Add movies to your watchlist and track your ratings and viewing history.
 - **Statistics**: View average IMDb ratings, user ratings, and runtime for your watched movies.
+- **Data Persistence**: Selected movies and ratings are saved in the browser's local storage, ensuring your data is persisted even after refreshing the page.
 - **Responsive Design**: Optimized for desktop and laptop devices is NOT available for mobile screens.
 
 ## App Demo
