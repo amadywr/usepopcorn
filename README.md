@@ -26,4 +26,4 @@ You can try the live demo of the app at [usepopcorn.ahmadyawari.com](https://use
 
 - Movie data is provided by the [OMDB API](https://www.omdbapi.com/).
 
-Enjoy discovering and rating movies with usePopcorn! 🎥✨
+Enjoy discovering and rating movies with usePopcorn!. 🎥✨
