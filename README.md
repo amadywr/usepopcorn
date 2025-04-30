@@ -25,6 +25,5 @@ You can try the live demo of the app at [usepopcorn.ahmadyawari.com](https://use
 ## Credits
 
 - Movie data is provided by the [OMDB API](https://www.omdbapi.com/).
-- Icons and design inspiration from various online resources.
 
 Enjoy discovering and rating movies with usePopcorn! 🎥✨
